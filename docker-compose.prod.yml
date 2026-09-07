@@ -1,0 +1,21 @@
+services:
+  site:
+    image: ghcr.io/OWNER/REPO:latest   # <-- à remplacer par ton owner/repo GitHub réel
+    container_name: site-heure
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    depends_on:
+      - site
+
+volumes:
+  caddy_data:

@@ -1,0 +1,19 @@
+services:
+  site:
+    build: ./app
+    container_name: site-heure
+    restart: unless-stopped
+    # Pas de port exposé directement : on passe toujours par Caddy,
+    # exactement comme ce sera le cas en production.
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy-proxy
+    restart: unless-stopped
+    ports:
+      - "8080:80"   # http://localhost:8080 en local
+      # En prod sur la VM Oracle, on mappera aussi le 443 pour le HTTPS
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - site

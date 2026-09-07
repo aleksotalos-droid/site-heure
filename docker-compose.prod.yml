@@ -1,6 +1,6 @@
 services:
   site:
-    image: ghcr.io/OWNER/REPO:latest   # <-- à remplacer par ton owner/repo GitHub réel
+    image: ghcr.io/aleksotalos-droid/site-heure:latest   # <-- à remplacer par ton owner/repo GitHub réel
     container_name: site-heure
     restart: unless-stopped
 
